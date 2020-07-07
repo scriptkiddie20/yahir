@@ -131,6 +131,33 @@ class Test extends CI_Controller
         $this->db->insert('users', $insert);
         redirect('https://api.whatsapp.com/send?phone=6281212609423&text=' . $name . '%0A%0A' . $email);
     }
+
+
+    public function message()
+    {
+
+        $nama = "dasf";
+        $db = $this->db->where('title', $nama)->get('test')->row_array();
+
+
+        $messages = "Hello pak " . $db['description'];
+
+        $app     = $_POST['app'];
+        $sender  = $_POST['sender'];
+        $message = $_POST['message'];
+
+        if ($app) {
+            if ($sender) {
+                if ($message) {
+                    $array = [
+                        "reply" => $messages
+                    ];
+
+                    echo json_encode($array);
+                }
+            }
+        }
+    }
 }
 
 /* End of file Test.php */
