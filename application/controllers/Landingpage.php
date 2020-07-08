@@ -8,7 +8,14 @@ class Landingpage extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Landingpage for grosirbajuku";
+        $this->load->model('landingpage_model');
+
+        $data = [
+            'title' => "Landingpage for grosirbajuku",
+            'result_paket' => $this->landingpage_model->result_paket()
+
+        ];
+
         $this->load->view('users/index', $data);
     }
 }
