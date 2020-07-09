@@ -8,7 +8,10 @@ class Landingpage_model extends CI_Model
 
     function result_paket()
     {
-        $db = $this->db->get('invoice__paket')->result_array();
+        $db = $this->db->select('*')->from('paket__detail')
+            ->join('paket', 'id_paket = paket_id')
+            ->get()->result_array();
+
         return $db;
     }
 }

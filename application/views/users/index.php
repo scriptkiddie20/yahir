@@ -24,14 +24,14 @@
                             <h4>Order Paket Usaha GrosirBajuKu</h4>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form id="orderpaket">
                                 <!-- Jumlah, Daster Karakter, Nama Lengkap, Alamat Lengkap, Hp -->
                                 <div class="row">
                                     <div class="col-lg-8">
                                         <label for="namaPaket">Nama paket :</label>
                                         <select name="namaPaket" id="namaPaket" class="form-control">
                                             <?php foreach ($result_paket as $rp) : ?>
-                                                <option harga="<?= $rp['total'] ?>" value="<?= $rp['id_paket'] ?>"><?= $rp['namaPaket'] ?></option>
+                                                <option harga="<?= $rp['total'] ?>" value="<?= $rp['id_paket'] ?>"><?= $rp['namapaket'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -82,18 +82,39 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script>
-        $.ajax({
-            url: 'test/add',
-            type: 'post',
-            data: data,
-            success: function(data) {
-                $('body').load('test');
-            }
-        });
+        function orderpaket() {
+
+            var valuepaket = $('#namaPaket').val();
+            var harga = $('#namaPaket option:selected').attr('harga').val();
+            var namapaket = $('#namaPaket').text();
+            var qty = $('#qty').val();
+            var namaLengkap = $('#namaLengkap').val();
+            var phone = $('#phone').val();
+            var alamat = $('#alamat').val();
+            var catatan = $('#catatan').val();
+
+            var data = $('#orderpaket').serialize();
+            $.ajax({
+                url: '<?= base_url('landingpage/orderpaket') ?>',
+                type: 'post',
+                data: {
+                    valuepaket: valuepaket,
+                    harga: harga,
+                    namapaket: namapaket,
+                    qty: qty,
+                    namaLengkap: namaLengkap,
+                    phone: phone,
+                    alamat: alamat,
+                    catatan: catatan
+                },
+                success: function(data) {
+                    window.location.href('https://api.whatsapp.com/send?phone=6281212609423');
+                }
+            });
+        }
 
 
         $(document).ready(function() {
-
             orderPaket();
         })
     </script>
